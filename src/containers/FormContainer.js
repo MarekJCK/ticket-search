@@ -19,6 +19,7 @@ export default class AppContainer extends Component {
     this.onToDateChange = this.onToDateChange.bind(this)
 
     this.state = {
+      currency: 'EUR',
       flights: [],
       isFormLoading: false,
       from: '',
@@ -52,9 +53,10 @@ export default class AppContainer extends Component {
       .then(response => {
         this.setState({
           flights: response.data.data,
-          isFormLoading: false
+          isFormLoading: false,
+          currency: response.data.currency
         })
-        
+
       })
   }
 
@@ -94,7 +96,7 @@ export default class AppContainer extends Component {
   }
 
   render() {
-    const { isFormLoading, flights } = this.state
+    const { isFormLoading, flights, currency } = this.state
 
     return (
       <div>
@@ -105,8 +107,8 @@ export default class AppContainer extends Component {
           onToChange={ this.onToChange }
           onFromDateChange={ this.onFromDateChange }
           onToDateChange={ this.onToDateChange }
-        />
-        <Flights flights={ flights } />
+        />      
+        <Flights flights={ flights } currency={ currency } />
       </div>
     )
   }
